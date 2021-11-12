@@ -1,5 +1,5 @@
 {
-  "name": "lesson01",
+  "name": "chat",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

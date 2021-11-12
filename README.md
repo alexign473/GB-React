@@ -1,6 +1,6 @@
 # GB-React
 
-Проект по курсу Geekbrains-React
+Проект по курсу Geekbrains-React.\
 Приложение - чат.
 
 # Getting Started with Create React App
