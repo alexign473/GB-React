@@ -1,0 +1,31 @@
+.msg {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;      
+}
+
+.msg_autor {
+    font-weight: bold;
+  }
+
+.msg_bubble {
+    max-width: 450px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #ececec;   
+    word-break: break-all;
+}
+
+.sent {
+    flex-direction: row-reverse;
+}
+
+.sent .msg_bubble {
+    background:  #579ffb;
+    color: #fff;
+    border-bottom-right-radius: 0;
+}
+
+.received .msg_bubble {
+    border-bottom-left-radius: 0;
+}
