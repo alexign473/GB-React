@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import Room from './Room/Room.js';
 
-// 4. Добавить “массив чатов”
 export default function RoomList() {
     const [rooms] = useState(["room1", "room2", "room3"]);
     return (
