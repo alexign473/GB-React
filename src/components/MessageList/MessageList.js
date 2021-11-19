@@ -1,5 +1,5 @@
-import styles from "./MessageList.module.css"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams } from "react-router-dom";
 import { Box, Input, Button, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -27,30 +27,58 @@ const msgerForm = {
     borderColor: 'divider',
 }
 
+
 export default function MessageList() {
-    const [messageList, setMessageList] = useState([
-        { text: "HEYYEYAAEYAAAEYAEYAA", autor: "HEMAN" },
-        { text: "Hey", autor: "HEMAN" },
-        { text: "What's goin on?", autor: "HEMAN" },
-    ]);
+    const { roomId } = useParams();
+    const [messageList, setMessageList] = useState({
+        room1: [
+            { text: "HEYYEYAAEYAAAEYAEYAA", autor: "HEMAN" },
+            { text: "Hey", autor: "HEMAN" },
+            { text: "What's goin on?", autor: "HEMAN" },
+        ],
+        room2: [
+            { text: "hello room2", autor: "HEMAN" },
+            { text: "hello room2", autor: "User" }
+        ]
+    }
+    );
     const [formValue, setFormValue] = useState('')
 
+    const sendMessage = useCallback(
+        (text, autor = "HEMAN") => {
+            if (text) {
+                setMessageList({
+                    ...messageList, [roomId]: [
+                        ...(messageList[roomId] ?? []),
+                        { autor, text },
+                    ],
+                });
+
+                setFormValue("");
+            }
+        },
+        [messageList, roomId]
+    );
+
+    // const sendMessage = (e) => {
+    //     e.preventDefault()
+    //     if (formValue) {
+    //         setMessageList([...messageList, { text: formValue, autor: "HEMAN" }])
+    //         setFormValue('')
+    //     }
+    // }
+
     useEffect(() => {
-        const lastMessage = messageList[messageList.length - 1];
-        if (messageList.length && lastMessage.autor === 'HEMAN') {
+        const messages = messageList[roomId] ?? [];
+        const lastMessage = messages[messages.length - 1];
+        if (messages.length && lastMessage.autor === 'HEMAN') {
             setTimeout(() => {
-                setMessageList([...messageList, { text: `Not much, brb`, autor: "Duncan-BOT" }])
+                sendMessage(`Not much, brb`, "Duncan-BOT")
             }, 1000)
         }
-    }, [messageList])
+    }, [messageList, sendMessage, roomId])
 
-    const sendMessage = (e) => {
-        e.preventDefault()
-        if (formValue) {
-            setMessageList([...messageList, { text: formValue, autor: "HEMAN" }])
-            setFormValue('')
-        }
-    }
+    const messages = messageList[roomId] ?? [];
 
     return (
         <Box sx={{
@@ -59,10 +87,11 @@ export default function MessageList() {
             <Box sx={{
                 ...msgerChat
             }}>
-                {messageList.map((msg, i) => <Message key={i} message={msg} />)}
+                {messages.map((msg, i) => <Message key={i} message={msg} />)}
             </Box>
             <Box component="form"
-                onSubmit={sendMessage}
+                onSubmit={sendMessage(formValue)}
+                // onSubmit={console.log('click')}
                 sx={{
                     ...msgerForm
                 }}>

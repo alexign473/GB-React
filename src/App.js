@@ -1,12 +1,21 @@
 import { React, useState } from 'react';
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Link,
+    useParams,
+    useLinkClickHandler,
+    useNavigate
+} from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
+
 import Container from '@mui/material/Container';
 
-import MessageList from './components/MessageList/MessageList';
-import RoomList from './components/RoomList/RoomList'
+
+import { HomePage, ChatPage, ProfilePage } from "./pages";
 import DarkModeToggle from './components/DarkModeToggle';
 
 
@@ -48,18 +57,19 @@ export default function App() {
         <>
             <ThemeProvider theme={toggleDark ? darkTheme : lightTheme}>
                 <CssBaseline />
-                <Container fixed>
-                    <Grid container spacing={0} alignItems="stretch">
-                        <Grid item xs={12} md={3}>
-                            <DarkModeToggle toggleDark={toggleDark}
-                                settoggleDark={settoggleDark} />
-                            <RoomList />
-                        </Grid>
-                        <Grid item xs md>
-                            <MessageList />
-                        </Grid>
-                    </Grid>
+                <Container>
+
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/chat/*" element={<ChatPage />} />
+                            <Route path="/profile" element={<ProfilePage />} />
+                            <Route path="/*" element={<h1>404</h1>} />
+                        </Routes>
+                    </BrowserRouter>
                 </Container>
+                <DarkModeToggle toggleDark={toggleDark}
+                    settoggleDark={settoggleDark} />
             </ThemeProvider>
         </>
     )

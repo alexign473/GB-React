@@ -10,7 +10,7 @@ export default function Room(props) {
                     alt="avatar">
                 </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={title} secondary="Jan 9, 2021" />
+            <ListItemText primary={title} color="primary" secondary="Jan 9, 2021" />
         </ListItem>
     )
 }

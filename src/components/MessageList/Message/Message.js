@@ -1,4 +1,3 @@
-import styles from "./Message.module.css"
 import { Paper, Box, Typography, Avatar } from '@mui/material';
 
 
