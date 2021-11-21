@@ -1,11 +1,5 @@
 import {
-    BrowserRouter,
-    Routes,
-    Route,
     Link,
-    useParams,
-    useLinkClickHandler,
-    useNavigate
 } from "react-router-dom";
 
 export const HomePage = () => {

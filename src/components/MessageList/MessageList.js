@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from "react-router-dom";
-import { Box, Input, Button, IconButton } from '@mui/material';
+import { Box, Input, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 import Message from './Message/Message'
 
+// styles
 const msger = {
     display: 'flex',
     flexFlow: 'column wrap',
@@ -26,7 +27,7 @@ const msgerForm = {
     borderTop: 2,
     borderColor: 'divider',
 }
-
+//
 
 export default function MessageList() {
     const { roomId } = useParams();
@@ -81,20 +82,14 @@ export default function MessageList() {
     const messages = messageList[roomId] ?? [];
 
     return (
-        <Box sx={{
-            ...msger
-        }}>
-            <Box sx={{
-                ...msgerChat
-            }}>
+        <Box sx={{ ...msger }}>
+            <Box sx={{ ...msgerChat }}>
                 {messages.map((msg, i) => <Message key={i} message={msg} />)}
             </Box>
             <Box component="form"
                 onSubmit={sendMessage(formValue)}
                 // onSubmit={console.log('click')}
-                sx={{
-                    ...msgerForm
-                }}>
+                sx={{ ...msgerForm }}>
                 <Input
                     placeholder="Enter your message..."
                     value={formValue}
@@ -103,7 +98,7 @@ export default function MessageList() {
                     fullWidth />
                 <IconButton type="submit"
                     aria-label="send"
-                    size="large"
+                    size="medium"
                     color="primary"
                     sx={{
                         ml: 1,

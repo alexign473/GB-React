@@ -1,9 +1,12 @@
 import { Paper, Box, Typography, Avatar } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 
 export default function Message(props) {
     const { text, autor } = props.message
     const sent = autor === 'HEMAN'
+    const theme = useTheme()
+    const darkMode = theme.palette.mode === 'dark'
     return (
         <Box sx={{
             display: 'flex',
@@ -26,7 +29,7 @@ export default function Message(props) {
                 ":hover": {
                     boxShadow: 6,
                 },
-                backgroundColor: sent ? 'secondary.main' : 'background.paper',
+                backgroundColor: (sent && darkMode) ? 'secondary.main' : sent ? 'primary.main' : 'background.paper',
                 borderBottomLeftRadius: sent ? 16 : 0,
                 borderBottomRightRadius: sent ? 0 : 16,
             }}>
@@ -34,10 +37,11 @@ export default function Message(props) {
                 <Typography variant="subtitle2"
                     color="text.primary"
                     gutterBottom
-                    component="span">
+                    component="span"
+                    sx={{ color: sent ? 'primary.contrastText' : "text.primary" }}>
                     {autor}:
                 </Typography>
-                <Typography color="text.primary">
+                <Typography color="text.primary" sx={{ color: sent ? 'primary.contrastText' : "text.primary" }}>
                     {text}
                 </Typography>
             </Paper>

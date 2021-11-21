@@ -3,17 +3,13 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Link,
-    useParams,
-    useLinkClickHandler,
-    useNavigate
+    // Link,
+    // useParams,
+    // useLinkClickHandler,
+    // useNavigate
 } from "react-router-dom";
-import CssBaseline from '@mui/material/CssBaseline';
-
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
-import Container from '@mui/material/Container';
-
+import { CssBaseline, Container } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { HomePage, ChatPage, ProfilePage } from "./pages";
 import DarkModeToggle from './components/DarkModeToggle';
@@ -24,6 +20,7 @@ const darkTheme = createTheme({
         mode: 'dark',
         primary: {
             main: '#0f0',
+            contrastText: '#fff'
         },
         secondary: {
             main: '#f50057',
@@ -53,12 +50,12 @@ const lightTheme = createTheme({
 
 export default function App() {
     const [toggleDark, settoggleDark] = useState(true);
+
     return (
         <>
             <ThemeProvider theme={toggleDark ? darkTheme : lightTheme}>
                 <CssBaseline />
                 <Container>
-
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
