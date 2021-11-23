@@ -61,14 +61,6 @@ export default function MessageList() {
         [messageList, roomId]
     );
 
-    // const sendMessage = (e) => {
-    //     e.preventDefault()
-    //     if (formValue) {
-    //         setMessageList([...messageList, { text: formValue, autor: "HEMAN" }])
-    //         setFormValue('')
-    //     }
-    // }
-
     useEffect(() => {
         const messages = messageList[roomId] ?? [];
         const lastMessage = messages[messages.length - 1];
@@ -107,26 +99,6 @@ export default function MessageList() {
                 </IconButton>
             </Box>
         </Box>
-        // <div className={styles.msger}>
-        //     <div className={styles.msgerChat}>
-        //         {messageList.map((msg, i) => <Message key={i} message={msg} />)}
-        //     </div>
-
-        //     <form className={styles.msgerInputarea} onSubmit={sendMessage}>
-        //         <Input
-        //             placeholder="Enter your message..."
-        //             value={formValue}
-        //             onChange={(e) => setFormValue(e.target.value)}
-
-        //             // 2. Добавить автофокус
-        //             inputRef={input => input && input.focus()}
-        //             fullWidth />
-        //         <Button
-        //             type="submit"
-        //             variant="contained"
-        //             startIcon={<ChatIcon />}>send</Button>
-        //     </form>
-        // </div>
     )
 }
 

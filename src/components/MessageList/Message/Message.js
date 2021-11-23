@@ -14,16 +14,18 @@ export default function Message(props) {
             alignItems: 'flex-end',
             mb: 1,
         }}>
-            <Avatar alt="Avatar"
+            {!sent ? <Avatar alt="Avatar"
                 src="https://source.unsplash.com/random"
                 sx={{
-                    display: sent ? 'none' : 'block',
                     mr: 1,
-                    width: 56, height: 56
+                    width: 56,
+                    height: 56,
                 }} />
+                : null}
             <Paper sx={{
                 maxWidth: 450,
-                p: 2,
+                px: 1.5,
+                py: 1,
                 borderRadius: 4,
                 wordBreak: 'break-all',
                 ":hover": {
@@ -48,15 +50,3 @@ export default function Message(props) {
         </Box>
     )
 }
-
-// export default function Message(props) {
-//     const { text, autor } = props.message
-//     const messageClass = autor === 'HEMAN' ? styles.sent : styles.received
-//     return (
-//         <div className={`${styles.msg} ${messageClass}`}>
-//             <div className={styles.msg_bubble}>
-//                 <span className={styles.msg_autor}>{autor}: </span>
-//                 <p>{text}</p></div>
-//         </div>
-//     )
-// }
