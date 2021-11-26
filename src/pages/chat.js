@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 
 import MessageList from '../components/MessageList/MessageList';

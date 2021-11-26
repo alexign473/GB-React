@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import {
     BrowserRouter,
     Routes,
@@ -9,49 +9,22 @@ import {
     // useNavigate
 } from "react-router-dom";
 import { CssBaseline, Container } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import { HomePage, ChatPage, ProfilePage } from "./pages";
-import DarkModeToggle from './components/DarkModeToggle';
 import Header from './components/Header/Header';
+import { darkTheme, lightTheme } from './themes';
+import { store } from './store'
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-        primary: {
-            main: '#0f0',
-            contrastText: '#fff'
-        },
-        secondary: {
-            main: '#f50057',
-            contrastText: '#fff'
-        },
-        background: {
-            default: '#111111',
-            paper: '#212121',
-        },
-    }
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-        secondary: {
-            main: '#ce93d8',
-            contrastText: '#fff'
-        },
-        background: {
-            default: '#fff',
-            paper: '#fafafa',
-        }
-    }
 
-});
 
 export default function App() {
-    const [toggleDark, settoggleDark] = useState(true);
+    // const [toggleDark, settoggleDark] = useState(true);
+    const darkMode = useSelector(state => state.theme.darkMode)
+    console.log(store.getState())
     return (
         <>
-            <ThemeProvider theme={toggleDark ? darkTheme : lightTheme}>
+            <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
                 <CssBaseline />
                 <Container>
                     <BrowserRouter>
@@ -63,8 +36,6 @@ export default function App() {
                             <Route path="/*" element={<h1>404</h1>} />
                         </Routes>
                     </BrowserRouter>
-                    <DarkModeToggle toggleDark={toggleDark}
-                        settoggleDark={settoggleDark} />
                 </Container>
             </ThemeProvider>
         </>

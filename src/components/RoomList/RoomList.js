@@ -15,6 +15,4 @@ export default function RoomList() {
     )
 }
 
-//   <Link key={room} to={`/chat/${room}`}>
-//       <Room title={room} selected={params.roomId === room} room={room} />
-//   </Link> 
+
