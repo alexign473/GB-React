@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { CssBaseline, Container } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { HomePage, ChatPage, ProfilePage } from "./pages";
 import Header from './components/Header/Header';
 import { darkTheme, lightTheme } from './themes';
@@ -19,7 +19,6 @@ import { store } from './store'
 
 
 export default function App() {
-    // const [toggleDark, settoggleDark] = useState(true);
     const darkMode = useSelector(state => state.theme.darkMode)
     console.log(store.getState())
     return (

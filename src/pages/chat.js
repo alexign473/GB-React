@@ -30,6 +30,7 @@ export const ChatPage = () => {
                     <Routes>
                         <Route path=":roomId" element={<MessageList />} />
                         <Route path="/" element={<h1>Select room</h1>} />
+                        <Route path="/*" element={<h1>404</h1>} />
                     </Routes>
                 </Grid>
             </Grid>

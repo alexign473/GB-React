@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Box, Input, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from "react-redux";
-import { messageAdded } from '../../features/messages/messagesSlice'
+import { messageAdded, selectChatById } from '../../features/chat/chatSlice'
 
 import Message from './Message/Message'
 
@@ -42,52 +42,28 @@ export default function MessageList() {
     };
 
     // 2. Подключить соответствующие компоненты к стору.
-    const messageSelector = (roomId) => (state) => {
-        console.log("messages selector");
-        return state.messages.messages[roomId] ?? [];
-    };
-    const messageSelectorByMemo = useMemo(
-        () => messageSelector(roomId),
-        [roomId]
-    );
-    const messages = useSelector(messageSelectorByMemo);
+
+    const chat = useSelector(selectChatById(roomId))
+    const messages = chat.messages
     console.log(messages)
 
     const sendMessage = (e) => {
         e.preventDefault();
+        const autor = "HEMAN"
         if (input) {
-            dispatch(messageAdded(input, roomId))
+            dispatch(messageAdded(input, autor, roomId))
         }
         setInput('')
     }
 
-    // const sendMessage = useCallback(
-    //     (text, autor = "HEMAN") => {
-    //         if (text) {
-    //             setMessageList({
-    //                 ...messageList, [roomId]: [
-    //                     ...(messageList[roomId] ?? []),
-    //                     { autor, text },
-    //                 ],
-    //             });
-
-    //             setInput("");
-    //         }
-    //     },
-    //     [messageList, roomId]
-    // );
-
-    // useEffect(() => {
-    //     const messages = messageList[roomId] ?? [];
-    //     const lastMessage = messages[messages.length - 1];
-    //     if (messages.length && lastMessage.autor === 'HEMAN') {
-    //         setTimeout(() => {
-    //             sendMessage(`Not much, brb`, "Duncan-BOT")
-    //         }, 1000)
-    //     }
-    // }, [messageList, sendMessage, roomId])
-
-    // const messages = messageList[roomId] ?? [];
+    useEffect(() => {
+        const lastMessage = messages[messages.length - 1]
+        if (messages.length && lastMessage.autor === 'HEMAN') {
+            setTimeout(() => {
+                dispatch(messageAdded(`Not much, brb`, "Duncan-BOT", roomId))
+            }, 1000)
+        }
+    }, [messages, roomId])
 
     return (
         <Box sx={{ ...msger }}>
