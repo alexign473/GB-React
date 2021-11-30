@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Box, Input, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from "react-redux";
-import { messageAdded, selectChatById } from '../../features/chat/chatSlice'
+import { messageAdded, selectChatById, selectChatMessagesById } from '../../store/chat/chatSlice'
 
 import Message from './Message/Message'
 
@@ -44,7 +44,11 @@ export default function MessageList() {
     // 2. Подключить соответствующие компоненты к стору.
 
     const chat = useSelector(selectChatById(roomId))
-    const messages = chat.messages
+    const messages = chat?.messages ?? []
+    // function useParamSelector(selector, ...params) {
+    //     return useSelector(state => selector(state, ...params));
+    // }
+    // const messages = useParamSelector(selectChatMessagesById, roomId)
     console.log(messages)
 
     const sendMessage = (e) => {

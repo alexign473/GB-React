@@ -2,7 +2,7 @@
     "chats": [
         {
             "id": "room1",
-            "name": "room1",
+            "title": "room1",
             "messages": [
                 {
                     "id": "1",
@@ -23,7 +23,7 @@
         },
         {
             "id": "room2",
-            "name": "room2",
+            "title": "room2",
             "messages": [
                 {
                     "id": "1",
@@ -39,7 +39,7 @@
         },
         {
             "id": "room3",
-            "name": "room3",
+            "title": "room3",
             "messages": []
         }
     ]

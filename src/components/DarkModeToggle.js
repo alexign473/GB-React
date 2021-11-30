@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, FormControlLabel } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { themeToggled } from '../features/theme/themeSlice'
+import { themeToggled } from '../store/theme/themeSlice'
 
 export default function DarkModeToggle() {
     const dispatch = useDispatch()

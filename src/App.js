@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { HomePage, ChatPage, ProfilePage } from "./pages";
 import Header from './components/Header/Header';
 import { darkTheme, lightTheme } from './themes';
-import { store } from './store'
+import { store } from './store/store'
 
 
 

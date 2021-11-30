@@ -29,6 +29,27 @@ const chatSlice = createSlice({
                     }
                 }
             }
+        },
+        // 3. добавить логику удаления и добавления чатов в редьюсер.
+        chatDeleted: (state, action) => {
+            const chats = state.chats.filter(c =>
+                c.title !== action.payload)
+            return { ...state, chats: [...chats] }
+        },
+        chatAdded: {
+            reducer: (state, action) => {
+                console.log(action.payload)
+                state.chats.push(action.payload)
+            },
+            prepare: (title) => {
+                return {
+                    payload: {
+                        id: title,
+                        title: title,
+                        messages: []
+                    }
+                }
+            }
         }
     }
 })
@@ -36,7 +57,7 @@ const chatSlice = createSlice({
 // chats: [
 //     {
 //         id: '1',
-//         name: 'room1',
+//         title: 'room1',
 //         messages: [
 //             { text: "HEYYEYAAEYAAAEYAEYAA", autor: "HEMAN" },
 //             { text: "Hey", autor: "HEMAN" },
@@ -44,7 +65,7 @@ const chatSlice = createSlice({
 //     },
 //     {
 //         id: '2',
-//      name: 'room2',
+//      title: 'room2',
 //         messages: [
 //             { text: "hello room2", autor: "HEMAN" },
 //             { text: "hello room2", autor: "User" }
@@ -54,8 +75,16 @@ const chatSlice = createSlice({
 
 
 export const selectChats = (state) => state.chat.chats
-export const selectChatsIds = (state) => state.chat.chats.map((chat) => chat.id)
-export const selectChatById = (chatId) => (state) => state.chat.chats.find(c => c.id === chatId ?? [])
 
-export const { messageAdded } = chatSlice.actions
+export const selectChatsTitles = (state) => state.chat.chats.map((c) => c.title)
+
+export const selectChatById = (chatId) => (state) => state.chat.chats.find(c => c.id === chatId)
+
+export const selectChatMessagesById = createSelector(
+    selectChats,
+    (_, chatId) => chatId,
+    (chats, chatId) => chats.find(c => c.id === chatId)?.messages ?? []
+)
+
+export const { messageAdded, chatDeleted, chatAdded } = chatSlice.actions
 export default chatSlice.reducer
