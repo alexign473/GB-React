@@ -1,0 +1,46 @@
+{
+    "chats": [
+        {
+            "id": "room1",
+            "title": "room1",
+            "messages": [
+                {
+                    "id": "1",
+                    "text": "HEYYEYAAEYAAAEYAEYAA",
+                    "autor": "HEMAN"
+                },
+                {
+                    "id": "2",
+                    "text": "Hey",
+                    "autor": "HEMAN"
+                },
+                {
+                    "id": "3",
+                    "text": "What's goin on?",
+                    "autor": "HEMAN"
+                }
+            ]
+        },
+        {
+            "id": "room2",
+            "title": "room2",
+            "messages": [
+                {
+                    "id": "1",
+                    "text": "hello room2",
+                    "autor": "HEMAN"
+                },
+                {
+                    "id": "2",
+                    "text": "hello room2",
+                    "autor": "User"
+                }
+            ]
+        },
+        {
+            "id": "room3",
+            "title": "room3",
+            "messages": []
+        }
+    ]
+}
