@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-
-import MessageList from '../components/MessageList/MessageList';
+import MessageListContainer from '../components/MessageList/MessageListContainer';
 import RoomList from '../components/RoomList/RoomList'
 
 export const ChatPage = () => {
@@ -28,7 +27,7 @@ export const ChatPage = () => {
                 </Grid>
                 <Grid item xs md>
                     <Routes>
-                        <Route path=":roomId" element={<MessageList />} />
+                        <Route path=":roomId" element={<MessageListContainer />} />
                         <Route path="/" element={<h1>Select room</h1>} />
                         <Route path="/*" element={<h1>404</h1>} />
                     </Routes>

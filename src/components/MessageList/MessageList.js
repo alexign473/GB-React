@@ -1,10 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useParams } from "react-router-dom";
 import { Box, Input, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { useDispatch, useSelector } from "react-redux";
-import { messageAdded, selectChatById, selectChatMessagesById } from '../../store/chat/chatSlice'
-
 import Message from './Message/Message'
 
 // styles
@@ -31,43 +26,7 @@ const msgerForm = {
 }
 //
 
-export default function MessageList() {
-    const { roomId } = useParams();
-    const dispatch = useDispatch();
-
-    const [input, setInput] = useState('')
-
-    const onInputChange = (e) => {
-        setInput(e.target.value);
-    };
-
-    // 2. Подключить соответствующие компоненты к стору.
-
-    const chat = useSelector(selectChatById(roomId))
-    const messages = chat?.messages ?? []
-    // function useParamSelector(selector, ...params) {
-    //     return useSelector(state => selector(state, ...params));
-    // }
-    // const messages = useParamSelector(selectChatMessagesById, roomId)
-    console.log(messages)
-
-    const sendMessage = (e) => {
-        e.preventDefault();
-        const autor = "HEMAN"
-        if (input) {
-            dispatch(messageAdded(input, autor, roomId))
-        }
-        setInput('')
-    }
-
-    useEffect(() => {
-        const lastMessage = messages[messages.length - 1]
-        if (messages.length && lastMessage.autor === 'HEMAN') {
-            setTimeout(() => {
-                dispatch(messageAdded(`Not much, brb`, "Duncan-BOT", roomId))
-            }, 1000)
-        }
-    }, [messages, roomId])
+export default function MessageList({ input, messages, onInputChange, sendMessage }) {
 
     return (
         <Box sx={{ ...msger }}>

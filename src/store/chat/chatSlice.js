@@ -26,7 +26,10 @@ const chatSlice = createSlice({
                     payload: {
                         message: { id, text, autor },
                         chatId,
-                    }
+                    },
+                    meta: {
+                        delay: 500,
+                    },
                 }
             }
         },
@@ -53,26 +56,6 @@ const chatSlice = createSlice({
         }
     }
 })
-
-// chats: [
-//     {
-//         id: '1',
-//         title: 'room1',
-//         messages: [
-//             { text: "HEYYEYAAEYAAAEYAEYAA", autor: "HEMAN" },
-//             { text: "Hey", autor: "HEMAN" },
-//             { text: "What's goin on?", autor: "HEMAN" },]
-//     },
-//     {
-//         id: '2',
-//      title: 'room2',
-//         messages: [
-//             { text: "hello room2", autor: "HEMAN" },
-//             { text: "hello room2", autor: "User" }
-//         ]
-//     }
-// ]
-
 
 export const selectChats = (state) => state.chat.chats
 
