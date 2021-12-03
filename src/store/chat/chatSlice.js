@@ -1,7 +1,6 @@
 import { createSlice, createSelector, nanoid, current } from "@reduxjs/toolkit";
 import initialChatData from "./initialStateData.json";
 
-// 1. Добавить редьюсеры чатов и сообщений.
 const initialState = {
     chats: initialChatData.chats,
 };
@@ -12,7 +11,6 @@ const chatSlice = createSlice({
     reducers: {
         messageAdded: {
             reducer: (state, action) => {
-                // console.log(action.payload)                
                 const { message, chatId } = action.payload
                 const chat = state.chats.find((c) => c.id === chatId)
                 if (chat != null) {
@@ -33,7 +31,6 @@ const chatSlice = createSlice({
                 }
             }
         },
-        // 3. добавить логику удаления и добавления чатов в редьюсер.
         chatDeleted: (state, action) => {
             const chats = state.chats.filter(c =>
                 c.title !== action.payload)

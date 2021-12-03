@@ -17,26 +17,25 @@ import {
     REHYDRATE,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
+import { animeApi } from "./animeApi/animeApiSlice";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
     chat: chatReducer,
-    theme: themeReducer
+    theme: themeReducer,
+    [animeApi.reducerPath]: animeApi.reducer,
 });
 
-// 4. Установить и настроить redux-persist.
 // persist config obj
 // blacklist a store attribute using it's reducer name. Blacklisted attributes will not persist. (I did not find a way to blacklist specific values)
 const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['chat'], //blacklisting a store attribute name, will not persist that store attribute.
+    blacklist: ['chat', 'animeApi'], //blacklisting a store attribute name, will not persist that store attribute.
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// 1. Установить и подключить к стору redux-thunk.
 
 export const store = configureStore({
     reducer: persistedReducer,
@@ -48,7 +47,8 @@ export const store = configureStore({
     }).concat(
         logger,
         timeScheduler,
-        botAnswer
+        botAnswer,
+        animeApi.middleware,
     ),
 })
 
