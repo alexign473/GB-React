@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import profileReducer from './profile/profileSlice'
 import themeReducer from './theme/themeSlice'
 import chatReducer from './chat/chatSlice'
+import animeAPIReducer from './animeApi/animeAPISlice'
 import logger from 'redux-logger';
 import { timeScheduler } from './middleware/timeScheduler '
 import { botAnswer } from './middleware/botAnswer'
@@ -17,13 +18,12 @@ import {
     REHYDRATE,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
-import { animeApi } from "./animeApi/animeApiSlice";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
     chat: chatReducer,
     theme: themeReducer,
-    [animeApi.reducerPath]: animeApi.reducer,
+    animeAPI: animeAPIReducer,
 });
 
 // persist config obj
@@ -32,7 +32,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['chat', 'animeApi'], //blacklisting a store attribute name, will not persist that store attribute.
+    blacklist: ['chat', 'animeAPI'], //blacklisting a store attribute name, will not persist that store attribute.
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -48,7 +48,6 @@ export const store = configureStore({
         logger,
         timeScheduler,
         botAnswer,
-        animeApi.middleware,
     ),
 })
 

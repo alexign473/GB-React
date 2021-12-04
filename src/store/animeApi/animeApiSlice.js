@@ -1,24 +1,54 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createSlice } from "@reduxjs/toolkit"
+import { animeApi } from '../../api/animeAPI'
 
-export const animeApi = createApi({
-    reducerPath: 'animeApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'https://animechan.vercel.app/api/'
-    }),
-    endpoints: (builder) => ({
-        // getWaifuByCategory: builder.query({
-        //     query: (category) => `sfw/${category}`,
-        // }),
-        getRandomQuote: builder.query({
-            query: () => 'random',
-        }),
-        getManyRandomQuotes: builder.query({
-            query: () => 'quotes'
-        }),
-        getQoutesByAnimeTitle: builder.query({
-            query: (title) => `quotes/anime?title=${title}`
-        })
-    }),
+// 2. Добавить middleware для отправки запроса и обработки ответа, ошибки и состояния загрузки.
+const initialState = {
+    quote: {
+        character: '',
+        quote: '',
+    },
+    loading: false,
+    error: null,
+}
+
+const animeAPISlice = createSlice({
+    name: 'animeAPI',
+    initialState,
+    reducers: {
+        setQuote: (state, action) => {
+            const { character, quote } = action.payload
+            state.quote.character = character
+            state.quote.quote = quote
+        },
+        setLoading: (state) => {
+            state.loading = true
+        },
+        setLoadingComplete: (state) => {
+            state.loading = false
+        },
+    },
 })
 
-export const { useGetRandomQuoteQuery, useGetManyRandomQuotesQuery } = animeApi
+// Thunks
+export const getQuote = () => async (dispatch) => {
+    dispatch(setLoading())
+    try {
+        const { data } = await animeApi.get('random')
+        // console.log(data)
+        dispatch(setQuote(data))
+    } catch (e) {
+        console.log(e)
+    } finally {
+        dispatch(setLoadingComplete())
+    }
+}
+
+export const selectQuote = (state) => state.animeAPI.quote
+export const selectLoading = (state) => state.animeAPI.loading
+
+export const {
+    setQuote,
+    setLoading,
+    setLoadingComplete,
+} = animeAPISlice.actions
+export default animeAPISlice.reducer

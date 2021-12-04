@@ -1,32 +1,58 @@
-// import axios from 'axios'
-// import { useState } from 'react';
-import { useGetRandomQuoteQuery, useGetManyRandomQuotesQuery } from '../store/animeApi/animeApiSlice'
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getQuote, selectQuote, selectLoading } from '../store/animeApi/animeAPISlice'
 
+// 1. Добавить страницу, которая будет отображать данные, полученные через API 
 export const ApiPage = () => {
-    const { data, error, isLoading } = useGetManyRandomQuotesQuery()
-    // const [numDogs, setNumDogs] = useState(10);
-    // const { data = [], isFetching } = useFetchBreedsQuery(numDogs)
-    console.log(data)
     const dispatch = useDispatch()
+    const quote = useSelector(selectQuote)
+    const loading = useSelector(selectLoading)
+
+    useEffect(() => {
+        dispatch(getQuote())
+    }, [])
+
 
     return (
         <div>
             <h1>API</h1>
             <div>
-                {error ? (
-                    <>Oh no, there was an error</>
-                ) : isLoading ? (
-                    <>Loading...</>
-                ) : data ? (
-                    <>
-                        {data.map((quote, i) => (<p key={i}>{quote.character} : {quote.quote}</p>))}
-                    </>
-                ) : null}
+                <button onClick={() => dispatch(getQuote())}>Get random quote</button><br />
+                {loading ? (<>Loading...</>)
+                    : quote ? (
+                        <>
+                            <p>{`${quote.character}: `}{quote.quote}</p>
+                        </>
+                    ) : null}
+
             </div>
         </div>
     );
 };
+
+
+// export const ApiPage = () => {
+//     const { data, error, isLoading } = useGetManyRandomQuotesQuery()
+//     console.log(data)
+//     const dispatch = useDispatch()
+
+//     return (
+//         <div>
+//             <h1>API</h1>
+//             <div>
+//                 {error ? (
+//                     <>Oh no, there was an error</>
+//                 ) : isLoading ? (
+//                     <>Loading...</>
+//                 ) : data ? (
+//                     <>
+//                         {data.map((quote, i) => (<p key={i}>{quote.character} : {quote.quote}</p>))}
+//                     </>
+//                 ) : null}
+//             </div>
+//         </div>
+//     );
+// };
 
 // export const ApiPage = () => {
 //     const [quote, setQuote] = useState({ character: '', quote: '' })
