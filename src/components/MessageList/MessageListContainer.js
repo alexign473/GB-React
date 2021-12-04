@@ -5,11 +5,9 @@ import { useParams } from "react-router-dom";
 import { messageAdded, selectChatById, selectChatMessagesById } from '../../store/chat/chatSlice'
 import MessageList from './MessageList'
 
-// 3. Разделить компоненты на контейнеры и презентационные.
 export default function MessageListContainer() {
     const dispatch = useDispatch()
     const { roomId } = useParams()
-    // console.log(roomId)
 
     const [input, setInput] = useState('')
     const onInputChange = (e) => {
@@ -33,21 +31,12 @@ export default function MessageListContainer() {
         setInput('')
     }
 
-    // useEffect(() => {
-    //     const lastMessage = messages[messages.length - 1]
-    //     if (messages.length && lastMessage.autor === 'HEMAN') {
-    //         setTimeout(() => {
-    //             dispatch(messageAdded(`Not much, brb`, "Duncan-BOT", roomId))
-    //         }, 1000)
-    //     }
-    // }, [messages, roomId])
 
     return (
         <MessageList input={input}
             messages={messages}
             onInputChange={onInputChange}
             sendMessage={sendMessage}
-        // roomId={roomId}
         >
         </MessageList>
     )
