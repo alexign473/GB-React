@@ -19,14 +19,7 @@ const animeAPISlice = createSlice({
     initialState,
     reducers: {
         setQuote: (state, { payload }) => {
-            const { character, quote, anime } = payload
-            state.quotes = [
-                {
-                    anime: anime,
-                    character: character,
-                    quote: quote,
-                }
-            ]
+            state.quotes = [payload]
         },
         setLoading: (state) => {
             state.loading = true
