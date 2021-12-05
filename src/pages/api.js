@@ -36,10 +36,12 @@ export const ApiPage = () => {
         <div>
             <h1>API</h1>
             <div>
-                <LoadingButton loading={loading} variant="outlined" size="small" onClick={() => dispatch(getQuote())}>
+                <LoadingButton loading={loading} variant="outlined" size="small" style={{ marginRight: 5 }}
+                    onClick={() => dispatch(getQuote())}>
                     Get random quote
                 </LoadingButton>
-                <LoadingButton loading={loading} variant="outlined" size="small" onClick={() => dispatch(getQuote())}>
+                <LoadingButton loading={loading} variant="outlined" size="small"
+                    onClick={() => dispatch(getManyQuotes())}>
                     Get 10 random quotes
                 </LoadingButton>
                 <FormInput onFormSubmit={onFormSubmit}
