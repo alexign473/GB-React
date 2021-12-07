@@ -17,6 +17,7 @@ export default function Header() {
                 <Link to="/profile">Profile</Link>
                 <Link to="/chat">Chat</Link>
                 <Link to="/api">API</Link>
+                <Link to="/login">Login</Link>
             </nav>
             <DarkModeToggle />
         </Box>

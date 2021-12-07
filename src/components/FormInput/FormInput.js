@@ -19,7 +19,10 @@ export default function FormInput({ onFormSubmit, label, titleInput, onTitleInpu
                 value={titleInput}
                 onChange={onTitleInputChange}
             />
-            <Button type="submit" variant="outlined" size="small" sx={{ height: '28px' }}>{primary}</Button>
+            <Button type="submit" variant="outlined" size="small"
+                sx={{ height: '28px', marginLeft: '4px' }}>
+                {primary}
+            </Button>
         </Box>
     )
 }

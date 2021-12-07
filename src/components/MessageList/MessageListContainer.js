@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { messageAdded, selectChatById, selectChatMessagesById } from '../../store/chat/chatSlice'
 import MessageList from './MessageList'
@@ -20,7 +20,7 @@ export default function MessageListContainer() {
     //     return useSelector(state => selector(state, ...params));
     // }
     // const messages = useParamSelector(selectChatMessagesById, roomId)
-    console.log(messages)
+    const dummy = useRef()
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -28,6 +28,7 @@ export default function MessageListContainer() {
         if (input) {
             dispatch(messageAdded(input, autor, roomId))
         }
+        dummy.current.scrollIntoView({ behavior: 'smooth' })
         setInput('')
     }
 
@@ -35,9 +36,8 @@ export default function MessageListContainer() {
     return (
         <MessageList input={input}
             messages={messages}
+            dummy={dummy}
             onInputChange={onInputChange}
-            sendMessage={sendMessage}
-        >
-        </MessageList>
+            sendMessage={sendMessage} />
     )
 }

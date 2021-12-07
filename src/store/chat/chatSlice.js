@@ -12,7 +12,7 @@ const chatSlice = createSlice({
         messageAdded: {
             reducer: (state, action) => {
                 const { message, chatId } = action.payload
-                const chat = state.chats.find((c) => c.id === chatId)
+                const chat = state.chats.find((chat) => chat.id === chatId)
                 if (chat != null) {
                     chat.messages.push(message)
                 }
@@ -32,13 +32,12 @@ const chatSlice = createSlice({
             }
         },
         chatDeleted: (state, action) => {
-            const chats = state.chats.filter(c =>
-                c.title !== action.payload)
+            const chats = state.chats.filter(chat =>
+                chat.title !== action.payload)
             return { ...state, chats: [...chats] }
         },
         chatAdded: {
             reducer: (state, action) => {
-                console.log(action.payload)
                 state.chats.push(action.payload)
             },
             prepare: (title) => {
@@ -55,15 +54,13 @@ const chatSlice = createSlice({
 })
 
 export const selectChats = (state) => state.chat.chats
-
-export const selectChatsTitles = (state) => state.chat.chats.map((c) => c.title)
-
-export const selectChatById = (chatId) => (state) => state.chat.chats.find(c => c.id === chatId)
+export const selectChatsTitles = (state) => state.chat.chats.map((chat) => chat.title)
+export const selectChatById = (chatId) => (state) => state.chat.chats.find(chat => chat.id === chatId)
 
 export const selectChatMessagesById = createSelector(
     selectChats,
     (_, chatId) => chatId,
-    (chats, chatId) => chats.find(c => c.id === chatId)?.messages ?? []
+    (chats, chatId) => chats.find(chat => chat.id === chatId)?.messages ?? []
 )
 
 export const { messageAdded, chatDeleted, chatAdded } = chatSlice.actions

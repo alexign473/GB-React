@@ -14,5 +14,7 @@ const profileSlice = createSlice({
     }
 })
 
+export const selectProfile = state => state.profile.checked
+
 export const { checkboxToggled } = profileSlice.actions
 export default profileSlice.reducer

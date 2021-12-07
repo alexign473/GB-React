@@ -4,11 +4,11 @@ import Checkbox from '@mui/material/Checkbox';
 import DarkModeToggle from '../components/DarkModeToggle'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { checkboxToggled } from '../store/profile/profileSlice'
+import { checkboxToggled, selectProfile } from '../store/profile/profileSlice'
 
 export const ProfilePage = () => {
     const dispatch = useDispatch()
-    const checked = useSelector(state => state.profile.checked)
+    const checked = useSelector(selectProfile)
 
     const handleChange = (e) => {
         dispatch(checkboxToggled(e.target.checked))

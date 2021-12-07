@@ -26,12 +26,13 @@ const msgerForm = {
 }
 //
 
-export default function MessageList({ input, messages, onInputChange, sendMessage }) {
+export default function MessageList({ input, messages, dummy, onInputChange, sendMessage }) {
 
     return (
         <Box sx={{ ...msger }}>
             <Box sx={{ ...msgerChat }}>
                 {messages.map((msg, i) => <Message key={i} message={msg} />)}
+                <div ref={dummy}></div>
             </Box>
             <Box component="form"
                 onSubmit={sendMessage}

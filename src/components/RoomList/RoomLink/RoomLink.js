@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom';
 import { ListItem, ListItemText, ListItemAvatar, Avatar, IconButton } from "@mui/material";
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import ClearIcon from '@mui/icons-material/Clear';
 import { chatDeleted } from '../../../store/chat/chatSlice'
 
 export default function RoomLink(props) {
@@ -25,7 +25,7 @@ export default function RoomLink(props) {
                 secondaryAction={
                     <IconButton edge="end" aria-label="delete" size="small" color="primary"
                         onClick={() => { dispatch(chatDeleted(title)) }}>
-                        <HighlightOffIcon />
+                        <ClearIcon />
                     </IconButton>
                 } >
                 <ListItemAvatar>
