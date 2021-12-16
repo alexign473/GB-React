@@ -35,10 +35,10 @@ export default function RoomList() {
             <List>
                 {rooms.map((room) => (<RoomLink to={`/chat/${room}`} key={room} title={room} />))}
             </List>
-            <FormInput onFormSubmit={onFormSubmit}
+            <FormInput onSubmit={onFormSubmit}
                 label="Add room"
-                titleInput={titleInput}
-                onTitleInputChange={onTitleInputChange}
+                value={titleInput}
+                onChange={onTitleInputChange}
                 primary="add" />
         </>
 

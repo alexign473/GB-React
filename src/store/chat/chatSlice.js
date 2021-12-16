@@ -1,4 +1,4 @@
-import { createSlice, createSelector, nanoid, current } from "@reduxjs/toolkit";
+import { createSlice, createSelector, nanoid } from "@reduxjs/toolkit";
 import initialChatData from "./initialStateData.json";
 
 const initialState = {

@@ -1,9 +1,12 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { TextField, Box, Button } from "@mui/material";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState } from "react";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import LoginInput from '../components/LoginInput/LoginInput'
 
 export const LoginPage = () => {
     const auth = getAuth();
+    const [user, loading, error] = useAuthState(auth);
+
     const [input, setInput] = useState({ email: "", password: "" })
     const onInputChange = (e) => {
         const field = e.target.getAttribute("data-name");
@@ -12,67 +15,80 @@ export const LoginPage = () => {
             [field]: e.target.value,
         });
     }
-    const createUser = () => {
+
+    const handleLogin = async () => {
         if (!input.email || !input.password) {
             return;
         }
-        console.log('createUser')
-        createUserWithEmailAndPassword(auth, input.email, input.password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                // ...
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, input.email, input.password)
+            const user = userCredential.user
+            console.log("Singed in user: ", user)
+            setInput({ email: "", password: "" })
+        }
+        catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("An error occured: ", errorCode, errorMessage);
+        }
+    }
+
+    // const handleLogin = () => {
+    //     if (!input.email || !input.password) {
+    //         return;
+    //     }
+    //     signInWithEmailAndPassword(auth, input.email, input.password)
+    //         .then((userCredential) => {
+    //             // Signed in 
+    //             const user = userCredential.user;
+    //             console.log("Singed in user: ", user);
+    //             setInput({ email: "", password: "" })
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             console.log("An error occured: ", errorCode, errorMessage);
+    //         });
+    // };
+
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                console.log('logoutUser')
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
+                console.log("Logout error", error);
             });
     };
 
     const onFormSubmit = (e) => {
         e.preventDefault()
-        createUser()
+        handleLogin()
     }
+
+    if (loading) {
+        return (
+            <div>
+                <h3>Initialising User...</h3>
+            </div>
+        );
+    }
+    if (user) {
+        return (
+            <div>
+                <h3>Current User: {user.email}</h3>
+                <button onClick={handleLogout}>Log out</button>
+            </div>
+        );
+    }
+
     return (
         <div>
             <h1>Login</h1>
-            <Box component="form"
-                onSubmit={onFormSubmit}
-                sx={{
-                    '& .MuiTextField-root': { width: '25ch' },
-                    '& .MuiButtonBase-root': { width: '15ch' },
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}
-                noValidate
-                autoComplete="off"
-            >
-                <TextField
-                    // label={label}
-                    placeholder="Email..."
-                    variant="standard"
-                    value={input.email}
-                    inputProps={{
-                        "data-name": "email",
-                    }}
-                    onChange={onInputChange}
-                />
-                <TextField
-                    // label={label}
-                    placeholder="Password..."
-                    variant="standard"
-                    value={input.password}
-                    inputProps={{
-                        "data-name": "password",
-                    }}
-                    onChange={onInputChange}
-                />
-                <Button type="submit" variant="outlined" size="small"
-                    sx={{ height: '28px', }}>
-                    Sigh up
-                </Button>
-            </Box>
+            <LoginInput onSubmit={onFormSubmit}
+                value={input}
+                onChange={onInputChange}
+                primary="Login" />
         </div>
     );
 };

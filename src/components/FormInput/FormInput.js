@@ -1,9 +1,9 @@
 import { Box, TextField, Button } from '@mui/material';
 
-export default function FormInput({ onFormSubmit, label, titleInput, onTitleInputChange, primary }) {
+export default function FormInput({ onSubmit, label, value, onChange, primary }) {
     return (
         <Box component="form"
-            onSubmit={onFormSubmit}
+            onSubmit={onSubmit}
             sx={{
                 // '& .MuiTextField-root': { width: '25ch' },
                 display: 'flex',
@@ -16,8 +16,8 @@ export default function FormInput({ onFormSubmit, label, titleInput, onTitleInpu
                 id="standard-size-small"
                 size="small"
                 variant="standard"
-                value={titleInput}
-                onChange={onTitleInputChange}
+                value={value}
+                onChange={onChange}
             />
             <Button type="submit" variant="outlined" size="small"
                 sx={{ height: '28px', marginLeft: '4px' }}>

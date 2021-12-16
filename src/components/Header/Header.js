@@ -18,6 +18,7 @@ export default function Header() {
                 <Link to="/chat">Chat</Link>
                 <Link to="/api">API</Link>
                 <Link to="/login">Login</Link>
+                <Link to="/sign-up">Sign Up</Link>
             </nav>
             <DarkModeToggle />
         </Box>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef } from 'react';
 import { useParams } from "react-router-dom";
-import { messageAdded, selectChatById, selectChatMessagesById } from '../../store/chat/chatSlice'
+import { messageAdded, selectChatById } from '../../store/chat/chatSlice'
 import MessageList from './MessageList'
 
 export default function MessageListContainer() {
